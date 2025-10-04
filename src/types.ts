@@ -1,5 +1,15 @@
 // src/types.ts
-export type Page = 'home' | 'measure' | 'result' | 'records';
+export enum Page {
+  HOME = 'HOME',
+  S1_NORTH = 'S1_NORTH',
+  S2_USER = 'S2_USER',
+  S3_OPENING = 'S3_OPENING',
+  R1_RESULT = 'R1_RESULT',
+  R2_POST_SAVE = 'R2_POST_SAVE',
+  L1_LIST = 'L1_LIST',
+  PROFILE = 'PROFILE',
+}
+
 export type AppMode = 'sitting' | 'lying';
 export type FortuneStatus = '氣吉' | '氣偏悶' | '氣不夠好';
 
