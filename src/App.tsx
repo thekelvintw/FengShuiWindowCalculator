@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { Page, AppMode, SavedRecord, FortuneResult, CalculationState } from './types';
+import { Page, AppMode, SavedRecord, FortuneResult, CalculationState } from './types.ts';
 import { calculateFortune } from './services/fortuneService';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import { useAuth } from './contexts/AuthContext';
