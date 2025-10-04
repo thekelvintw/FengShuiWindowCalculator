@@ -240,8 +240,10 @@ export default function App() {
   }
 
   return (
-    <div className="app-height w-full max-w-md mx-auto bg-white shadow-lg flex flex-col relative overflow-hidden">
-      {renderPage()}
+    <div className="app-shell">
+      <main className="app-main">
+        {renderPage()}
+      </main>
       <LoginSheet isOpen={showLoginSheet} onClose={() => setShowLoginSheet(false)} onLogin={handleLogin} />
       {toast && (
         <Toast

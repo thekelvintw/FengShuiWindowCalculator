@@ -21,23 +21,24 @@ const Step2User: React.FC<Step2UserProps> = ({ mode, northDeg, onComplete, onBac
     : '將圖示轉到您躺下時頭部朝向的方向。';
 
   return (
-    <div className="flex flex-col h-full bg-gray-50">
-      <PageHeader title={title} step="步驟 2/3" onBack={onBack} onHome={onHome} />
-      <main className="flex-grow overflow-y-auto flex flex-col items-center justify-center p-4 text-center">
-        <p className="max-w-xs mb-8 text-gray-600">{description}</p>
+    <section className="dial-card">
+      <h2 className="text-xl font-bold text-gray-900">{title}</h2>
+      <p className="mt-2 text-gray-600">{description}</p>
+
+      <div className="mt-8 flex flex-col items-center">
         <RotaryDial onRotationChange={setUserDeg} snapDegrees={5} northIndicatorDeg={northDeg}>
           <div className="flex flex-col items-center text-blue-600">
             <div className="w-0 h-0 border-l-8 border-l-transparent border-r-8 border-r-transparent border-b-12 border-b-blue-600 -mb-1"></div>
             {mode === 'sitting' ? <UserIcon className="w-16 h-16" /> : <BedIcon className="w-16 h-16" />}
           </div>
         </RotaryDial>
-      </main>
-      <footer className="p-4 border-t border-gray-200 bg-white">
-        <ActionButton onClick={() => onComplete(userDeg)} icon={<CheckIcon className="w-6 h-6"/>}>
-          下一步
-        </ActionButton>
-      </footer>
-    </div>
+      </div>
+
+      <div className="mt-10 flex gap-3 justify-end">
+        <button className="btn-secondary" onClick={onBack}>上一步</button>
+        <button className="btn-primary" onClick={() => onComplete(userDeg)}>下一步</button>
+      </div>
+    </section>
   );
 };
 

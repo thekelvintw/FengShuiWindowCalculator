@@ -51,25 +51,21 @@ const ResultPage: React.FC<ResultPageProps> = ({ result, mode, onSave, onRetest,
     }
   
     return (
-    <div className="flex flex-col h-full bg-gray-50">
-      <header className="relative flex items-center justify-center p-4 border-b border-gray-200">
-        <button onClick={onBack} className="absolute left-4 p-2 text-gray-500 hover:text-gray-800" aria-label="Back to previous step">
-            <ChevronLeftIcon className="w-6 h-6" />
-        </button>
-        <h2 className="text-xl font-bold text-gray-800 text-center">分析結果</h2>
-      </header>
-      <main className="flex-grow overflow-y-auto p-6 flex flex-col justify-center">
-        <ResultCard result={result} mode={mode} />
-        {!user && reachGuestLimit() && (
-            <div className="text-center mt-3 mb-3 text-sm text-gray-500">
-                <p>想把結果帶著走？ <button onClick={handleLoginClick} className="text-blue-600 underline hover:text-blue-800">用 Google 登入</button> 就能跨裝置同步。</p>
-            </div>
-        )}
-      </main>
-      <footer className="p-4 border-t border-gray-200 bg-white grid grid-cols-2 gap-4">
-        <ActionButton onClick={onRetest} variant="secondary">返回首頁</ActionButton>
-        <ActionButton onClick={() => setShowSaveModal(true)}>{isEditing ? '更新' : '保存'}</ActionButton>
-      </footer>
+    <section className="result-card">
+      <div className="text-sm text-gray-500">{result.abs_deg}° · {result.direction} · {result.gua}位</div>
+      <h3 className="mt-2 text-2xl font-extrabold text-gray-900">{result.fortune_status}</h3>
+      <p className="mt-2 text-gray-700 leading-relaxed">{result.copy}</p>
+
+      {!user && reachGuestLimit() && (
+          <div className="text-center mt-3 mb-3 text-sm text-gray-500">
+              <p>想把結果帶著走？ <button onClick={handleLoginClick} className="text-blue-600 underline hover:text-blue-800">用 Google 登入</button> 就能跨裝置同步。</p>
+          </div>
+      )}
+
+      <div className="mt-8 flex justify-end gap-3">
+        <button className="btn-secondary" onClick={onRetest}>返回首頁</button>
+        <button className="btn-primary" onClick={() => setShowSaveModal(true)}>{isEditing ? '更新' : '保存'}</button>
+      </div>
       
       {showSaveModal && (
         <div className="absolute inset-0 bg-black/40 flex items-center justify-center p-4" onClick={() => setShowSaveModal(false)}>
@@ -84,13 +80,13 @@ const ResultPage: React.FC<ResultPageProps> = ({ result, mode, onSave, onRetest,
                     className="w-full p-2 bg-white border border-gray-300 text-gray-800 placeholder-gray-400 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                 />
                 <div className="mt-6 grid grid-cols-2 gap-3">
-                    <ActionButton variant="secondary" onClick={() => setShowSaveModal(false)}>取消</ActionButton>
-                    <ActionButton onClick={handleConfirmSave}>{isEditing ? '確認更新' : '確認保存'}</ActionButton>
+                    <button className="btn-secondary" onClick={() => setShowSaveModal(false)}>取消</button>
+                    <button className="btn-primary" onClick={handleConfirmSave}>{isEditing ? '確認更新' : '確認保存'}</button>
                 </div>
             </div>
         </div>
       )}
-    </div>
+    </section>
   );
 };
 

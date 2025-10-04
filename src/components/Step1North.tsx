@@ -13,12 +13,11 @@ const Step1North: React.FC<Step1NorthProps> = ({ onComplete, onBack }) => {
   const [northDeg, setNorthDeg] = useState(0);
 
   return (
-    <div className="flex flex-col h-full bg-gray-50">
-      <PageHeader title="校準北方 (S1)" step="步驟 1/3" onBack={onBack} />
-      <main className="flex-grow overflow-y-auto flex flex-col items-center justify-center p-4 text-center">
-        <p className="max-w-xs mb-8 text-gray-600">
-          找最有把握的牆當基準，把 N 轉到你心中的北；量不準也行，我們以保守策略處理。
-        </p>
+    <section className="dial-card">
+      <h2 className="text-xl font-bold text-gray-900">校準北方 (S1)</h2>
+      <p className="mt-2 text-gray-600">找最有把握的牆當基準，把 N 轉到你心中的北；量不準也行，我們以保守策略處理。</p>
+
+      <div className="mt-8 flex flex-col items-center">
         <RotaryDial onRotationChange={setNorthDeg} snapDegrees={1}>
             <div className="relative w-full h-full">
                 {/* North Pointer - Red, thicker, with 'N' at the tip */}
@@ -43,13 +42,13 @@ const Step1North: React.FC<Step1NorthProps> = ({ onComplete, onBack }) => {
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-gray-800 rounded-full border-2 border-white z-10" aria-hidden="true"></div>
             </div>
         </RotaryDial>
-      </main>
-      <footer className="p-4 border-t border-gray-200 bg-white">
-        <ActionButton onClick={() => onComplete(northDeg)} icon={<CheckIcon className="w-6 h-6"/>}>
-          下一步
-        </ActionButton>
-      </footer>
-    </div>
+      </div>
+
+      <div className="mt-10 flex gap-3 justify-end">
+        <button className="btn-secondary" onClick={onBack}>上一步</button>
+        <button className="btn-primary" onClick={() => onComplete(northDeg)}>下一步</button>
+      </div>
+    </section>
   );
 };
 

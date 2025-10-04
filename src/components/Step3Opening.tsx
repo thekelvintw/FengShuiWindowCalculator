@@ -37,37 +37,25 @@ const Step3Opening: React.FC<Step3OpeningProps> = ({ onCalculate, onBack, onHome
   }
 
   return (
-    <div className="flex flex-col h-full bg-gray-50">
-      <PageHeader title="開口相對位置 (S3)" step="步驟 3/3" onBack={onBack} onHome={onHome} />
-      <main className="flex-grow overflow-y-auto flex flex-col items-center justify-center p-6 text-center">
-        <h3 className="text-xl font-bold text-gray-800 mb-2">這扇「開口」相對我在哪？</h3>
-        <p className="text-gray-600 mb-6">點擊下方按鈕選擇方位</p>
-        
-        <div className="grid grid-cols-3 gap-3 w-full max-w-xs">
-          {quickDirections.map(({ label, deg }) => (
-            <button
-              key={label || 'center'}
-              disabled={deg === null}
-              onClick={() => handleQuickSelect(deg)}
-              className={`py-4 px-2 rounded-lg text-lg font-semibold transition-colors border ${
-                deg !== null
-                  ? 'bg-white shadow-sm hover:bg-blue-50 border-gray-200'
-                  : 'bg-transparent border-transparent flex items-center justify-center'
-              }`}
-            >
-              {deg === null ? <div className="w-8 h-8 rounded-full bg-gray-300"></div> : label}
-            </button>
-          ))}
-        </div>
+    <section className="dial-card">
+      <h2 className="text-xl font-bold">開口相對位置 (S3)</h2>
+      <p className="mt-2 text-gray-600">這扇「開口」相對我在哪？點擊下方按鈕選擇方位</p>
 
-        <div className="w-full max-w-xs mt-8">
-            <button onClick={() => setIsAdvanced(!isAdvanced)} className="text-blue-600 font-semibold">
-                {isAdvanced ? '收起進階選項' : '展開進階選項'}
-            </button>
-        </div>
+      <div className="choice-grid">
+        {quickDirections.map(({ label, deg }) => (
+          <button key={label || 'center'} 
+                  disabled={deg === null}
+                  onClick={() => handleQuickSelect(deg)}
+                  className={`choice-card ${deg === null ? 'opacity-50 cursor-not-allowed' : ''}`}>
+            {deg === null ? <div className="w-8 h-8 rounded-full bg-gray-300"></div> : label}
+          </button>
+        ))}
+      </div>
 
-        {isAdvanced && (
-          <div className="w-full max-w-xs mt-4 p-4 bg-white rounded-lg shadow-md">
+      <div className="mt-8">
+        <details className="app-card p-4">
+          <summary className="cursor-pointer font-semibold text-gray-800">展開進階選項</summary>
+          <div className="mt-4 grid gap-4 sm:grid-cols-2">
             <div className="flex justify-center mb-4">
               <button onClick={() => setInputType('relative')} className={`px-4 py-2 text-sm rounded-l-md ${inputType === 'relative' ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}>相對角度</button>
               <button onClick={() => setInputType('absolute')} className={`px-4 py-2 text-sm rounded-r-md ${inputType === 'absolute' ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}>絕對角度</button>
@@ -84,16 +72,18 @@ const Step3Opening: React.FC<Step3OpeningProps> = ({ onCalculate, onBack, onHome
                     <input type="number" value={absoluteDeg ?? ''} onChange={e => setAbsoluteDeg(parseInt(e.target.value, 10) || 0)} className="mt-1 w-full text-center text-2xl font-bold p-2 bg-white border border-gray-300 text-gray-800 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"/>
                 </div>
             )}
-             <ActionButton onClick={handleAdvancedSubmit} className="mt-4 !py-2 !text-base">
+             <button className="btn-primary mt-4" onClick={handleAdvancedSubmit}>
                 查看結果
-            </ActionButton>
+            </button>
           </div>
-        )}
-      </main>
-      <footer className="p-4 border-t border-gray-200 bg-white">
-        <p className="text-center text-sm text-gray-500">或使用進階選項手動輸入角度</p>
-      </footer>
-    </div>
+        </details>
+      </div>
+
+      <div className="mt-8 flex justify-end gap-3">
+        <button className="btn-secondary" onClick={onBack}>上一步</button>
+        <button className="btn-primary" onClick={() => onCalculate(0, null)}>查看結果</button>
+      </div>
+    </section>
   );
 };
 
