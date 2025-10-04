@@ -1,0 +1,5 @@
+{
+  "name": "九運開窗簡易測算",
+  "description": "An application to determine the auspiciousness of openings in a room based on your position and orientation, using Feng Shui principles. It allows for manual calibration, provides actionable advice, and lets you save results locally.",
+  "requestFramePermissions": []
+}

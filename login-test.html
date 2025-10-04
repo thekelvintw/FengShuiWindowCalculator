@@ -1,0 +1,38 @@
+
+
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Login Test</title></head>
+<body>
+  <button id="loginBtn" onclick="loginWithGoogle()">Sign in with Google</button>
+  <button id="logoutBtn" onclick="logout()" style="display:none;">Sign out</button>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut }
+      from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyC_ho86XCmSLv8e57kEKlM5UFax9C9bxtY",
+      authDomain: "feng-shui-window-calculator.firebaseapp.com",
+      projectId: "feng-shui-window-calculator",
+      storageBucket: "feng-shui-window-calculator.firebasestorage.app",
+      messagingSenderId: "463086639273",
+      appId: "1:463086639273:web:cde2c84508fd6fff4df1b8",
+      measurementId: "G-KC4X2V3GKQ"
+    };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+
+    async function loginWithGoogle(){ await signInWithPopup(auth, provider); }
+    function logout(){ signOut(auth); }
+    onAuthStateChanged(auth, (user)=>{
+      document.getElementById('loginBtn').style.display = user ? 'none' : 'inline-block';
+      document.getElementById('logoutBtn').style.display = user ? 'inline-block' : 'none';
+      console.log('user:', user?.uid || 'guest');
+    });
+    window.loginWithGoogle = loginWithGoogle; window.logout = logout;
+  </script>
+</body>
+</html>
