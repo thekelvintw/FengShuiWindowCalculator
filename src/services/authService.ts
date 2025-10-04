@@ -1,5 +1,5 @@
 import { User, SavedRecord } from '../types';
-import { auth, db } from '../firebase';
+import { auth, db } from './firebase';
 import { 
   GoogleAuthProvider, 
   signInWithPopup, 
