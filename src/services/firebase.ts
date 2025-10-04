@@ -17,7 +17,20 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+
+// Initialize Analytics only if measurementId exists and we're in browser
+let analytics;
+if (firebaseConfig.measurementId && typeof window !== 'undefined') {
+  try {
+    analytics = getAnalytics(app);
+  } catch (error) {
+    console.warn('Failed to initialize Firebase Analytics:', error);
+    analytics = null;
+  }
+} else {
+  analytics = null;
+}
+
 const auth = getAuth(app);
 const db = getFirestore(app);
 
