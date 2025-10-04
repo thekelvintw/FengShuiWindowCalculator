@@ -13,7 +13,8 @@ body {
 
 /* 共用卡片樣式（給首頁兩顆卡片與步驟容器用） */
 .ui-card {
-  @apply bg-white rounded-2xl shadow-card;
+  @apply bg-white rounded-2xl;
+  box-shadow: 0 10px 25px -5px rgba(0,0,0,0.08), 0 8px 10px -6px rgba(0,0,0,0.05);
 }
 
 /* 主要版心寬度，手機滿版、md 以上置中 */
