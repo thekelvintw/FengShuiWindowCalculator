@@ -1,8 +1,7 @@
 
 import React, { useState } from 'react';
 import RotaryDial from './RotaryDial';
-import { PageHeader, ActionButton } from './common';
-import { CheckIcon } from './icons';
+import PageShell from './PageShell';
 
 interface Step1NorthProps {
   onComplete: (north: number) => void;
@@ -13,12 +12,16 @@ const Step1North: React.FC<Step1NorthProps> = ({ onComplete, onBack }) => {
   const [northDeg, setNorthDeg] = useState(0);
 
   return (
-    <section className="dial-card">
-      <h2 className="text-xl font-bold text-gray-900">校準北方 (S1)</h2>
-      <p className="mt-2 text-gray-600">找最有把握的牆當基準，把 N 轉到你心中的北；量不準也行，我們以保守策略處理。</p>
-
-      <div className="mt-8 flex flex-col items-center">
-        <RotaryDial onRotationChange={setNorthDeg} snapDegrees={1}>
+    <PageShell
+      title="校準北方 (S1)"
+      subtitle="找最有把握的牆當基準，把 N 轉到你心中的北；量不準也行，我們以保守策略處理。"
+      rightSlot={<button className="btn btn-secondary px-3 h-9">🏠 首頁</button>}
+    >
+      {/* 內容卡片 */}
+      <section className="card p-5 sm:p-6">
+        {/* 錶盤容器：始終正方比例、置中 */}
+        <div className="dial-wrap">
+          <RotaryDial onRotationChange={setNorthDeg} snapDegrees={1}>
             <div className="relative w-full h-full">
                 {/* North Pointer - Red, thicker, with 'N' at the tip */}
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 h-1/2 flex flex-col items-center">
@@ -41,14 +44,23 @@ const Step1North: React.FC<Step1NorthProps> = ({ onComplete, onBack }) => {
                 {/* Center Pivot */}
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-gray-800 rounded-full border-2 border-white z-10" aria-hidden="true"></div>
             </div>
-        </RotaryDial>
-      </div>
+          </RotaryDial>
+        </div>
 
-      <div className="mt-10 flex gap-3 justify-end">
-        <button className="btn-secondary" onClick={onBack}>上一步</button>
-        <button className="btn-primary" onClick={() => onComplete(northDeg)}>下一步</button>
+        {/* 角度讀數 */}
+        <div className="mt-5 text-center text-slate-600">{northDeg}°</div>
+      </section>
+
+      {/* 底部主動作 */}
+      <div className="action-bar mt-6">
+        <div className="action-bar-inner">
+          <div className="grid grid-cols-2 gap-3">
+            <button className="btn btn-secondary h-12" onClick={onBack}>上一步</button>
+            <button className="btn btn-primary h-12" onClick={() => onComplete(northDeg)}>下一步</button>
+          </div>
+        </div>
       </div>
-    </section>
+    </PageShell>
   );
 };
 

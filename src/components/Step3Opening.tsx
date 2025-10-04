@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { PageHeader, ActionButton } from './common';
+import PageShell from './PageShell';
 import { CalculationState } from '../types';
 
 interface Step3OpeningProps {
@@ -37,53 +37,62 @@ const Step3Opening: React.FC<Step3OpeningProps> = ({ onCalculate, onBack, onHome
   }
 
   return (
-    <section className="dial-card">
-      <h2 className="text-xl font-bold">開口相對位置 (S3)</h2>
-      <p className="mt-2 text-gray-600">這扇「開口」相對我在哪？點擊下方按鈕選擇方位</p>
-
-      <div className="choice-grid">
-        {quickDirections.map(({ label, deg }) => (
-          <button key={label || 'center'} 
-                  disabled={deg === null}
-                  onClick={() => handleQuickSelect(deg)}
-                  className={`choice-card ${deg === null ? 'opacity-50 cursor-not-allowed' : ''}`}>
-            {deg === null ? <div className="w-8 h-8 rounded-full bg-gray-300"></div> : label}
-          </button>
-        ))}
-      </div>
-
-      <div className="mt-8">
-        <details className="app-card p-4">
-          <summary className="cursor-pointer font-semibold text-gray-800">展開進階選項</summary>
-          <div className="mt-4 grid gap-4 sm:grid-cols-2">
-            <div className="flex justify-center mb-4">
-              <button onClick={() => setInputType('relative')} className={`px-4 py-2 text-sm rounded-l-md ${inputType === 'relative' ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}>相對角度</button>
-              <button onClick={() => setInputType('absolute')} className={`px-4 py-2 text-sm rounded-r-md ${inputType === 'absolute' ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}>絕對角度</button>
-            </div>
-            
-            {inputType === 'relative' ? (
-                <div>
-                    <label className="block text-sm font-medium text-gray-700">相對我的角度 (前=0°)</label>
-                    <input type="number" value={relativeDeg} onChange={e => setRelativeDeg(parseInt(e.target.value, 10) || 0)} className="mt-1 w-full text-center text-2xl font-bold p-2 bg-white border border-gray-300 text-gray-800 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"/>
-                </div>
-            ) : (
-                <div>
-                    <label className="block text-sm font-medium text-gray-700">絕對方位角度 (北=0°)</label>
-                    <input type="number" value={absoluteDeg ?? ''} onChange={e => setAbsoluteDeg(parseInt(e.target.value, 10) || 0)} className="mt-1 w-full text-center text-2xl font-bold p-2 bg-white border border-gray-300 text-gray-800 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"/>
-                </div>
-            )}
-             <button className="btn-primary mt-4" onClick={handleAdvancedSubmit}>
-                查看結果
+    <PageShell
+      title="開口相對位置 (S3)"
+      subtitle="這扇「開口」相對我在哪？點擊下方按鈕選擇方位"
+      rightSlot={<button className="btn btn-secondary px-3 h-9" onClick={onHome}>🏠 首頁</button>}
+    >
+      {/* 內容卡片 */}
+      <section className="card p-5 sm:p-6">
+        <div className="grid grid-cols-3 gap-3">
+          {quickDirections.map(({ label, deg }) => (
+            <button key={label || 'center'} 
+                    disabled={deg === null}
+                    onClick={() => handleQuickSelect(deg)}
+                    className={`card h-16 flex items-center justify-center text-gray-800 hover:shadow-md transition ${deg === null ? 'opacity-50 cursor-not-allowed' : ''}`}>
+              {deg === null ? <div className="w-8 h-8 rounded-full bg-gray-300"></div> : label}
             </button>
-          </div>
-        </details>
-      </div>
+          ))}
+        </div>
 
-      <div className="mt-8 flex justify-end gap-3">
-        <button className="btn-secondary" onClick={onBack}>上一步</button>
-        <button className="btn-primary" onClick={() => onCalculate(0, null)}>查看結果</button>
+        <div className="mt-8">
+          <details className="card p-4">
+            <summary className="cursor-pointer font-semibold text-gray-800">展開進階選項</summary>
+            <div className="mt-4 grid gap-4 sm:grid-cols-2">
+              <div className="flex justify-center mb-4">
+                <button onClick={() => setInputType('relative')} className={`px-4 py-2 text-sm rounded-l-md ${inputType === 'relative' ? 'bg-brand-600 text-white' : 'bg-gray-200'}`}>相對角度</button>
+                <button onClick={() => setInputType('absolute')} className={`px-4 py-2 text-sm rounded-r-md ${inputType === 'absolute' ? 'bg-brand-600 text-white' : 'bg-gray-200'}`}>絕對角度</button>
+              </div>
+              
+              {inputType === 'relative' ? (
+                  <div>
+                      <label className="block text-sm font-medium text-gray-700">相對我的角度 (前=0°)</label>
+                      <input type="number" value={relativeDeg} onChange={e => setRelativeDeg(parseInt(e.target.value, 10) || 0)} className="mt-1 w-full text-center text-2xl font-bold p-2 bg-white border border-gray-300 text-gray-800 rounded-md shadow-sm focus:ring-brand-500 focus:border-brand-500"/>
+                  </div>
+              ) : (
+                  <div>
+                      <label className="block text-sm font-medium text-gray-700">絕對方位角度 (北=0°)</label>
+                      <input type="number" value={absoluteDeg ?? ''} onChange={e => setAbsoluteDeg(parseInt(e.target.value, 10) || 0)} className="mt-1 w-full text-center text-2xl font-bold p-2 bg-white border border-gray-300 text-gray-800 rounded-md shadow-sm focus:ring-brand-500 focus:border-brand-500"/>
+                  </div>
+              )}
+               <button className="btn btn-primary mt-4" onClick={handleAdvancedSubmit}>
+                  查看結果
+              </button>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      {/* 底部主動作 */}
+      <div className="action-bar mt-6">
+        <div className="action-bar-inner">
+          <div className="grid grid-cols-2 gap-3">
+            <button className="btn btn-secondary h-12" onClick={onBack}>上一步</button>
+            <button className="btn btn-primary h-12" onClick={() => onCalculate(0, null)}>查看結果</button>
+          </div>
+        </div>
       </div>
-    </section>
+    </PageShell>
   );
 };
 

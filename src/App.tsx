@@ -240,8 +240,8 @@ export default function App() {
   }
 
   return (
-    <div className="app-shell">
-      <main className="app-main">
+    <div className="page-shell">
+      <main className="page-main">
         {renderPage()}
       </main>
       <LoginSheet isOpen={showLoginSheet} onClose={() => setShowLoginSheet(false)} onLogin={handleLogin} />
