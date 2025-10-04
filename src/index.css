@@ -9,7 +9,11 @@ body { @apply bg-gray-50 text-gray-800 antialiased; }
 /* 共用外框 */
 .app-shell { @apply min-h-screen flex flex-col; }
 .app-main  { @apply container max-w-3xl w-full flex-1 py-8 sm:py-10; }
-.app-card  { @apply bg-white shadow-card rounded-xl2 border border-gray-100; }
+.app-card  { 
+  @apply bg-white border border-gray-100;
+  box-shadow: 0 6px 18px rgba(16,24,40,.08);
+  border-radius: 1rem;
+}
 
 /* 標題 */
 .h-title    { @apply text-3xl sm:text-4xl font-extrabold tracking-tight text-gray-900; }
@@ -17,19 +21,22 @@ body { @apply bg-gray-50 text-gray-800 antialiased; }
 
 /* 按鈕 */
 .btn-primary {
-  @apply inline-flex items-center justify-center px-5 py-3 rounded-xl2
-         bg-brand text-white font-semibold shadow-sm hover:bg-blue-600
+  @apply inline-flex items-center justify-center px-5 py-3 text-white font-semibold shadow-sm hover:bg-blue-600
          focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500;
+  background-color: #2563eb;
+  border-radius: 1rem;
 }
 .btn-secondary {
-  @apply inline-flex items-center justify-center px-5 py-3 rounded-xl2
-         bg-white text-gray-700 font-semibold border border-gray-200
+  @apply inline-flex items-center justify-center px-5 py-3 bg-white text-gray-700 font-semibold border border-gray-200
          hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300;
+  border-radius: 1rem;
 }
 
 /* 區塊 */
 .choice-grid { @apply grid grid-cols-3 gap-4 mt-6; }
-.choice-card { @apply app-card h-24 sm:h-28 flex items-center justify-center text-gray-800 hover:shadow-md transition; }
+.choice-card { 
+  @apply app-card h-24 sm:h-28 flex items-center justify-center text-gray-800 hover:shadow-md transition;
+}
 .dial-card   { @apply app-card px-4 sm:px-6 py-8 sm:py-10; }
 .result-card { @apply app-card p-5 sm:p-6; }
 
