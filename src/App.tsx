@@ -240,10 +240,8 @@ export default function App() {
   }
 
   return (
-    <div className="page-shell">
-      <main className="page-main">
-        {renderPage()}
-      </main>
+    <div className="min-h-screen">
+      {renderPage()}
       <LoginSheet isOpen={showLoginSheet} onClose={() => setShowLoginSheet(false)} onLogin={handleLogin} />
       {toast && (
         <Toast

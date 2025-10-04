@@ -2,67 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
-/* 統一版心與排版密度 */
-@layer base {
-  html, body, #root {
-    @apply h-full;
-  }
-  body {
-    @apply bg-slate-50 text-slate-800 antialiased;
-  }
-  h1 { @apply text-3xl sm:text-4xl font-bold tracking-tight; }
-  h2 { @apply text-2xl sm:text-3xl font-semibold tracking-tight; }
-  h3 { @apply text-xl sm:text-2xl font-semibold; }
-  p  { @apply leading-relaxed; }
+/* 讓整體版心與背景更像設計稿 */
+html, body, #root {
+  height: 100%;
 }
 
-/* 可複用的版心容器 */
-@layer components {
-  .page-shell {
-    @apply min-h-screen flex flex-col;
-  }
-  .page-header {
-    @apply sticky top-0 z-30 bg-white/80 backdrop-blur border-b border-slate-200;
-  }
-  .page-main {
-    @apply flex-1;
-  }
-  .page-container {
-    @apply container max-w-screen-md mx-auto;
-  }
+body {
+  @apply bg-gray-50 text-gray-800 antialiased;
+}
 
-  /* 卡片與按鈕 */
-  .card {
-    @apply bg-white rounded-2xl shadow-card border border-slate-100;
-  }
-  .btn {
-    @apply inline-flex items-center justify-center rounded-xl font-medium shadow-sm transition;
-  }
-  .btn-primary {
-    @apply btn bg-brand-600 text-white hover:bg-brand-500;
-  }
-  .btn-secondary {
-    @apply btn bg-white border border-slate-200 hover:bg-slate-50;
-  }
+/* 共用卡片樣式（給首頁兩顆卡片與步驟容器用） */
+.ui-card {
+  @apply bg-white rounded-2xl shadow-card;
+}
 
-  /* 首頁選項卡片（大小固定、RWD） */
-  .option-card {
-    @apply card w-full aspect-[4/3] flex items-center justify-center gap-3;
-  }
-  .option-label {
-    @apply text-lg sm:text-xl font-semibold;
-  }
+/* 主要版心寬度，手機滿版、md 以上置中 */
+.container-app {
+  @apply mx-auto w-full px-4 sm:px-6 lg:px-8;
+  max-width: 56rem; /* 對應 theme.maxWidth.screen-2md */
+}
 
-  /* 錶盤容器（等比例置中） */
-  .dial-wrap {
-    @apply w-full max-w-[520px] mx-auto aspect-square flex items-center justify-center;
-  }
+/* 首頁：標題與副標的節奏 */
+.hero-title {
+  @apply text-3xl sm:text-4xl font-extrabold tracking-tight text-gray-900;
+}
 
-  /* 頁面底部主動作按鈕列（浮動固定） */
-  .action-bar {
-    @apply sticky bottom-0 z-20 bg-white/80 backdrop-blur border-t border-slate-200;
-  }
-  .action-bar-inner {
-    @apply page-container py-4;
-  }
+.hero-subtitle {
+  @apply mt-4 text-lg sm:text-xl text-gray-600;
 }
